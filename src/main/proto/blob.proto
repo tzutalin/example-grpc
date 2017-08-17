@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.tzutalin.grpc.blobkeeper";
+option java_outer_classname = "blob";
+
+package blobkeeper;
+
+service BlobKeeper {
+    rpc GetBlob(stream PutRequest) returns (PutResponse) {}
+}
+
+message PutRequest {
+    bytes data = 1;
+    int64 offset = 2;
+}
+
+message PutResponse {
+    int32 status = 1;
+    string message = 2;
+}
