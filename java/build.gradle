@@ -80,3 +80,13 @@ sourceSets {
         }
     }
 }
+
+task(runUploadClient, dependsOn: 'classes', type: JavaExec) {
+    main = 'UploadFileClient'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runUploadServer, dependsOn: 'classes', type: JavaExec) {
+    main = 'UploadFileServer'
+    classpath = sourceSets.main.runtimeClasspath
+}
