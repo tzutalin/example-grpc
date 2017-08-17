@@ -8,12 +8,22 @@ public interface PutRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bytes data = 1;</code>
+   * <code>string name = 1;</code>
+   */
+  java.lang.String getName();
+  /**
+   * <code>string name = 1;</code>
+   */
+  com.google.protobuf.ByteString
+      getNameBytes();
+
+  /**
+   * <code>bytes data = 2;</code>
    */
   com.google.protobuf.ByteString getData();
 
   /**
-   * <code>int64 offset = 2;</code>
+   * <code>int64 offset = 3;</code>
    */
   long getOffset();
 }

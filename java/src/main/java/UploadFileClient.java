@@ -72,7 +72,7 @@ public class UploadFileClient {
                 while ((tmp = bInputStream.read(buffer)) > 0) {
                     size += tmp;
                     ByteString byteString = ByteString.copyFrom(buffer);
-                    PutRequest req = PutRequest.newBuilder().setData(byteString).setOffset(tmp).build();
+                    PutRequest req = PutRequest.newBuilder().setName(filepath).setData(byteString).setOffset(tmp).build();
                     requestObserver.onNext(req);
                 }
             } catch (FileNotFoundException e) {
@@ -98,7 +98,7 @@ public class UploadFileClient {
     public static void main(String[] args) throws Exception {
         UploadFileClient client = new UploadFileClient("localhost", PORT);
         try {
-            client.startStream("lena.png");
+            client.startStream("airplane_sky_flight_clouds.jpg");
             logger.info("Done with startStream");
         } finally {
             client.shutdown();

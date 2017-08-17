@@ -15,6 +15,7 @@ public  final class PutRequest extends
     super(builder);
   }
   private PutRequest() {
+    name_ = "";
     data_ = com.google.protobuf.ByteString.EMPTY;
     offset_ = 0L;
   }
@@ -45,11 +46,17 @@ public  final class PutRequest extends
             break;
           }
           case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            name_ = s;
+            break;
+          }
+          case 18: {
 
             data_ = input.readBytes();
             break;
           }
-          case 16: {
+          case 24: {
 
             offset_ = input.readInt64();
             break;
@@ -77,19 +84,53 @@ public  final class PutRequest extends
             com.tzutalin.grpc.blobkeeper.PutRequest.class, com.tzutalin.grpc.blobkeeper.PutRequest.Builder.class);
   }
 
-  public static final int DATA_FIELD_NUMBER = 1;
+  public static final int NAME_FIELD_NUMBER = 1;
+  private volatile java.lang.Object name_;
+  /**
+   * <code>string name = 1;</code>
+   */
+  public java.lang.String getName() {
+    java.lang.Object ref = name_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      name_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string name = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getNameBytes() {
+    java.lang.Object ref = name_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      name_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int DATA_FIELD_NUMBER = 2;
   private com.google.protobuf.ByteString data_;
   /**
-   * <code>bytes data = 1;</code>
+   * <code>bytes data = 2;</code>
    */
   public com.google.protobuf.ByteString getData() {
     return data_;
   }
 
-  public static final int OFFSET_FIELD_NUMBER = 2;
+  public static final int OFFSET_FIELD_NUMBER = 3;
   private long offset_;
   /**
-   * <code>int64 offset = 2;</code>
+   * <code>int64 offset = 3;</code>
    */
   public long getOffset() {
     return offset_;
@@ -107,11 +148,14 @@ public  final class PutRequest extends
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (!getNameBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+    }
     if (!data_.isEmpty()) {
-      output.writeBytes(1, data_);
+      output.writeBytes(2, data_);
     }
     if (offset_ != 0L) {
-      output.writeInt64(2, offset_);
+      output.writeInt64(3, offset_);
     }
   }
 
@@ -120,13 +164,16 @@ public  final class PutRequest extends
     if (size != -1) return size;
 
     size = 0;
+    if (!getNameBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+    }
     if (!data_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(1, data_);
+        .computeBytesSize(2, data_);
     }
     if (offset_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(2, offset_);
+        .computeInt64Size(3, offset_);
     }
     memoizedSize = size;
     return size;
@@ -144,6 +191,8 @@ public  final class PutRequest extends
     com.tzutalin.grpc.blobkeeper.PutRequest other = (com.tzutalin.grpc.blobkeeper.PutRequest) obj;
 
     boolean result = true;
+    result = result && getName()
+        .equals(other.getName());
     result = result && getData()
         .equals(other.getData());
     result = result && (getOffset()
@@ -158,6 +207,8 @@ public  final class PutRequest extends
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + NAME_FIELD_NUMBER;
+    hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + DATA_FIELD_NUMBER;
     hash = (53 * hash) + getData().hashCode();
     hash = (37 * hash) + OFFSET_FIELD_NUMBER;
@@ -281,6 +332,8 @@ public  final class PutRequest extends
     }
     public Builder clear() {
       super.clear();
+      name_ = "";
+
       data_ = com.google.protobuf.ByteString.EMPTY;
 
       offset_ = 0L;
@@ -307,6 +360,7 @@ public  final class PutRequest extends
 
     public com.tzutalin.grpc.blobkeeper.PutRequest buildPartial() {
       com.tzutalin.grpc.blobkeeper.PutRequest result = new com.tzutalin.grpc.blobkeeper.PutRequest(this);
+      result.name_ = name_;
       result.data_ = data_;
       result.offset_ = offset_;
       onBuilt();
@@ -350,6 +404,10 @@ public  final class PutRequest extends
 
     public Builder mergeFrom(com.tzutalin.grpc.blobkeeper.PutRequest other) {
       if (other == com.tzutalin.grpc.blobkeeper.PutRequest.getDefaultInstance()) return this;
+      if (!other.getName().isEmpty()) {
+        name_ = other.name_;
+        onChanged();
+      }
       if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
         setData(other.getData());
       }
@@ -382,15 +440,84 @@ public  final class PutRequest extends
       return this;
     }
 
+    private java.lang.Object name_ = "";
+    /**
+     * <code>string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string name = 1;</code>
+     */
+    public Builder setName(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      name_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string name = 1;</code>
+     */
+    public Builder clearName() {
+      
+      name_ = getDefaultInstance().getName();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string name = 1;</code>
+     */
+    public Builder setNameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      name_ = value;
+      onChanged();
+      return this;
+    }
+
     private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes data = 1;</code>
+     * <code>bytes data = 2;</code>
      */
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
     /**
-     * <code>bytes data = 1;</code>
+     * <code>bytes data = 2;</code>
      */
     public Builder setData(com.google.protobuf.ByteString value) {
       if (value == null) {
@@ -402,7 +529,7 @@ public  final class PutRequest extends
       return this;
     }
     /**
-     * <code>bytes data = 1;</code>
+     * <code>bytes data = 2;</code>
      */
     public Builder clearData() {
       
@@ -413,13 +540,13 @@ public  final class PutRequest extends
 
     private long offset_ ;
     /**
-     * <code>int64 offset = 2;</code>
+     * <code>int64 offset = 3;</code>
      */
     public long getOffset() {
       return offset_;
     }
     /**
-     * <code>int64 offset = 2;</code>
+     * <code>int64 offset = 3;</code>
      */
     public Builder setOffset(long value) {
       
@@ -428,7 +555,7 @@ public  final class PutRequest extends
       return this;
     }
     /**
-     * <code>int64 offset = 2;</code>
+     * <code>int64 offset = 3;</code>
      */
     public Builder clearOffset() {
       

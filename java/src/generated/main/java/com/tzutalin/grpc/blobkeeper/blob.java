@@ -33,13 +33,13 @@ public final class blob {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nblob.proto\022\nblobkeeper\"*\n\nPutRequest\022\014" +
-      "\n\004data\030\001 \001(\014\022\016\n\006offset\030\002 \001(\003\".\n\013PutRespo" +
-      "nse\022\016\n\006status\030\001 \001(\005\022\017\n\007message\030\002 \001(\t2L\n\n" +
-      "BlobKeeper\022>\n\007GetBlob\022\026.blobkeeper.PutRe" +
-      "quest\032\027.blobkeeper.PutResponse\"\000(\001B&\n\034co" +
-      "m.tzutalin.grpc.blobkeeperB\004blobP\001b\006prot" +
-      "o3"
+      "\n\nblob.proto\022\nblobkeeper\"8\n\nPutRequest\022\014" +
+      "\n\004name\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\022\016\n\006offset\030\003 \001" +
+      "(\003\".\n\013PutResponse\022\016\n\006status\030\001 \001(\005\022\017\n\007mes" +
+      "sage\030\002 \001(\t2L\n\nBlobKeeper\022>\n\007GetBlob\022\026.bl" +
+      "obkeeper.PutRequest\032\027.blobkeeper.PutResp" +
+      "onse\"\000(\001B&\n\034com.tzutalin.grpc.blobkeeper" +
+      "B\004blobP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -58,7 +58,7 @@ public final class blob {
     internal_static_blobkeeper_PutRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_blobkeeper_PutRequest_descriptor,
-        new java.lang.String[] { "Data", "Offset", });
+        new java.lang.String[] { "Name", "Data", "Offset", });
     internal_static_blobkeeper_PutResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_blobkeeper_PutResponse_fieldAccessorTable = new

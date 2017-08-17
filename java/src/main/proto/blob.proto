@@ -11,8 +11,9 @@ service BlobKeeper {
 }
 
 message PutRequest {
-    bytes data = 1;
-    int64 offset = 2;
+    string name = 1;
+    bytes data = 2;
+    int64 offset = 3;
 }
 
 message PutResponse {

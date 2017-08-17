@@ -6,7 +6,6 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -61,8 +60,8 @@ public class UploadFileServer {
     }
 
     static class BlobKeeperImpl extends BlobKeeperGrpc.BlobKeeperImplBase {
-        private int status = 200;
-        private String message = "";
+        private int mStatus = 200;
+        private String mMessage = "";
         private BufferedOutputStream mBufferedOutputStream = null;
 
         @Override
@@ -76,20 +75,15 @@ public class UploadFileServer {
                     logger.info("onNext count: " + mmCount);
                     mmCount++;
 
-                    if (mBufferedOutputStream == null) {
-                        try {
-                            mBufferedOutputStream = new BufferedOutputStream(new FileOutputStream("receive.png"));
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
                     byte[] data = request.getData().toByteArray();
                     long offset = request.getOffset();
+                    String name = request.getName();
                     try {
-                        if (mBufferedOutputStream != null) {
-                            mBufferedOutputStream.write(data);
+                        if (mBufferedOutputStream == null) {
+                            mBufferedOutputStream = new BufferedOutputStream(new FileOutputStream("receive_" + name));
                         }
+                        mBufferedOutputStream.write(data);
+                        mBufferedOutputStream.flush();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -102,8 +96,17 @@ public class UploadFileServer {
 
                 @Override
                 public void onCompleted() {
-                    responseObserver.onNext(PutResponse.newBuilder().setStatus(status).setMessage(message).build());
+                    responseObserver.onNext(PutResponse.newBuilder().setStatus(mStatus).setMessage(mMessage).build());
                     responseObserver.onCompleted();
+                    if (mBufferedOutputStream != null) {
+                        try {
+                            mBufferedOutputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            mBufferedOutputStream = null;
+                        }
+                    }
                 }
             };
         }
