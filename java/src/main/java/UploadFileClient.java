@@ -37,7 +37,7 @@ public class UploadFileClient {
     }
 
     public void startStream(final String filepath) {
-        logger.info("Will try to getBlob");
+        logger.info("tid: " +  Thread.currentThread().getId() + ", Will try to getBlob");
         StreamObserver<PutResponse> responseObserver = new StreamObserver<PutResponse>() {
 
             @Override
@@ -80,15 +80,7 @@ public class UploadFileClient {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            // TODO : Remove sleep
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         } catch (RuntimeException e) {
-            // Cancel RPC
             requestObserver.onError(e);
             throw e;
         }
@@ -101,6 +93,11 @@ public class UploadFileClient {
             client.startStream("airplane_sky_flight_clouds.jpg");
             logger.info("Done with startStream");
         } finally {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             client.shutdown();
         }
     }
