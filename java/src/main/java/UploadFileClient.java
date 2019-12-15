@@ -66,13 +66,11 @@ public class UploadFileClient {
             try {
                 BufferedInputStream bInputStream = new BufferedInputStream(new FileInputStream(file));
                 int bufferSize = 512 * 1024; // 512k
-                byte[] buffer = new byte[bufferSize];
-                int tmp = 0;
+                byte[] buffer = new byte[bufferSize];                
                 int size = 0;
-                while ((tmp = bInputStream.read(buffer)) > 0) {
-                    size += tmp;
-                    ByteString byteString = ByteString.copyFrom(buffer);
-                    PutRequest req = PutRequest.newBuilder().setName(filepath).setData(byteString).setOffset(tmp).build();
+                while ((size = bInputStream.read(buffer)) > 0) {                    
+                    ByteString byteString = ByteString.copyFrom(buffer, 0, size);
+                    PutRequest req = PutRequest.newBuilder().setName(filepath).setData(byteString).setOffset(size).build();
                     requestObserver.onNext(req);
                 }
             } catch (FileNotFoundException e) {
